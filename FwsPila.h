@@ -5,7 +5,7 @@
  *******************************************************************************************************/
 
 
-#include "C:/Users/frodo/Documents/FwsList/FwsNode.h"
+#include "C:/Users/frodo/Documents/GitHub/FwsNode/FwsNode.h"
 
 /******************************************************************************************
  ******************************** Declarar el tipo FwsPila ********************************
@@ -13,7 +13,7 @@
 typedef struct {
     FwsNode * PilaCima;
     FwsNode * PilaFondo;
-    int     * PillaDims;
+    int       PilaDims;
 }FwsPila;
 
 /******************************************************************************************
@@ -23,7 +23,7 @@ typedef struct {
 FwsPila *   FwsPilaCrear        (){
 
     FwsPila * nuevaPila =(FwsPila*)malloc(sizeof(FwsPila));
-    nuevaPila->PillaDims = 0;
+    nuevaPila->PilaDims = 0;
     nuevaPila->PilaFondo = NULL;
     nuevaPila->PilaCima  = NULL;
 
@@ -34,7 +34,7 @@ void        FwsPilaPop          ( FwsPila * pilaEntrada ){
 
     FwsNode * nodoCimaAux = pilaEntrada->PilaCima->nodeSiguiente;
     pilaEntrada->PilaCima = nodoCimaAux;
-    pilaEntrada->PillaDims --;
+    pilaEntrada->PilaDims --;
 
 }
 
@@ -42,7 +42,7 @@ void        FwsPilaPush         ( FwsPila * pilaEntrada, FwsNode * nodoEntrada )
 
     nodoEntrada->nodeSiguiente = pilaEntrada->PilaCima;
     pilaEntrada->PilaCima = nodoEntrada;
-    pilaEntrada->PillaDims++;
+    pilaEntrada->PilaDims++;
 
 }
 
@@ -63,6 +63,21 @@ void        FwsPilaPrint        ( FwsPila * pilaEntrada, int modo  ){
 
 }
 
+int         FwsPilaPopAt        ( FwsPila * pilaEntrada, int pos){
+
+    int posRecorrida = 0 ;
+    FwsNode * nodoAuxPila = pilaEntrada->PilaCima;
+
+    // recorrer la pila hasta encontar el elemento especificado (solo para pos > pila-> dis && numeros positivos
+    if (  (pos  <= pilaEntrada->PilaDims ) && pos > 0){
+        while( posRecorrida < pos  ){
+            FwsPilaPop(pilaEntrada);
+            posRecorrida++;
+        }
+    }
+
+    return 0;
+}
 
 
 #endif // FWSPILA_H
